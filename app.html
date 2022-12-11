@@ -9,33 +9,86 @@
         <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="app.css" />
         <link rel="stylesheet" href="nav.css" />
+        <link rel="stylesheet" href="form.css" />
     </head>
     <body>
-        <div class="container">
-            <header>
-                <nav>
-                    <div class="navbar">
-                        <div class="left-content">
-                            <h1>MOMO BANK</h1>
-                        </div>
-                        <div class="middle-content">
-                            <ul class="nav__item-list">
-                                <li class="nav__item" id="nav-products">PRODUCTS</li>
-                                <li class="nav__item" id="nav-business">BUSINESS</li>
-                                <li class="nav__item" id="nav-invest">INVEST</li>
-                            </ul>
-                        </div>
-                        <div class="right-content">
-                            <ul class="nav__item-list">
-                                <li class="nav__item" id="nav-register">REGISTER</li>
-                                <li class="nav__item" id="nav-login">LOGIN</li>
-                            </ul>
-                        </div>
+        <header>
+            <nav>
+                <div class="navbar">
+                    <div class="left-content">
+                        <h1>MOMO BANK</h1>
                     </div>
-                </nav>
-            </header>
+                    <div class="middle-content">
+                        <ul class="nav__item-list">
+                            <li class="nav__item" id="nav-products">PRODUCTS</li>
+                            <li class="nav__item" id="nav-business">BUSINESS</li>
+                            <li class="nav__item" id="nav-invest">INVEST</li>
+                        </ul>
+                    </div>
+                    <div class="right-content" id="public-menu">
+                        <ul class="nav__item-list">
+                            <li class="nav__item" id="nav-register">REGISTER</li>
+                            <li class="nav__item" id="nav-login">LOGIN</li>
+                        </ul>
+                    </div>
+                    <div class="right-content" id="user-menu">
+                        <ul class="nav__item-list">
+                            <li class="nav__item" id="nav-profile">PROFILE</li>
+                            <li class="nav__item" id="nav-logout">LOGOUT</li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
             <main>
+                <div class="overlay-wrapper" id="register-overlay">
+                    <div class="overlay-form">
+                        <div class="form-title">REGISTRATION</div>
+                        <form id="register-form" action="" method="POST">
+                            <div class="field-group">
+                                <p class="field-label">Fullname</p>
+                                <input type="text" name="" id="reg_fullname" required />
+                            </div>
+                            <div class="field-group">
+                                <p class="field-label">Username</p>
+                                <input type="text" name="" id="reg_username" required />
+                            </div>
+                            <div class="field-group">
+                                <p class="field-label">PIN</p>
+                                <input type="password" name="" id="reg_pin" required />
+                            </div>
+                            <div class="err-message" id="reg_err-message">Error message</div>
+                            <div class="button-group">
+                                <button class="btn-green" type="submit" id="reg_register">REGISTER</button>
+                                <button class="btn-orange" type="button" id="reg_cancel">CANCEL</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="overlay-wrapper" id="login-overlay">
+                    <div class="overlay-form">
+                        <div class="form-title">SYSTEM LOGIN</div>
+                        <form id="login-form" action="" method="POST">
+                            <div class="field-group">
+                                <p class="field-label">Username</p>
+                                <input type="text" name="" id="login_username" required />
+                            </div>
+                            <div class="field-group">
+                                <p class="field-label">PIN</p>
+                                <input type="password" name="" id="login_pin" required />
+                            </div>
+                            <div class="err-message" id="login_err-message">Error message</div>
+                            <div class="button-group">
+                                <button class="btn-green" type="submit" id="login_login">LOGIN</button>
+                                <button class="btn-orange" type="button" id="login_cancel">CANCEL</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="content"></div>
+
+                <div class="userinfo">Welcome, User</div>
             </main>
             <footer></footer>
         </div>

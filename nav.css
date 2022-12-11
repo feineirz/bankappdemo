@@ -27,3 +27,10 @@
     background-color: greenyellow;
     transition: 0.3s;
 }
+
+#public-menu {
+    display: block;
+}
+#user-menu {
+    display: none;
+}

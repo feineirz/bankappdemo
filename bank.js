@@ -25,8 +25,22 @@ export class Bank {
         return this.#bankName
     }
 
+    find(accId) {
+        return this.#accounts.filter(ele => accId === ele.accId)[0]
+    }
+
+    exist(username) {
+        return this.#accounts.filter(ele => username === ele.username)[0]
+    }
+
+    login(username, pin) {
+        return this.#accounts.filter(acc => acc.username === username && acc.pin === pin)[0]
+    }
+
     register(account) {
-        if (!account) return false
+        if (!account.owner || !account.username) return false
+        if (this.exist(account.username)) return false
+
         this.#accounts.push(account)
         return true
     }
