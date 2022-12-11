@@ -1,5 +1,5 @@
 .overlay-form {
-    background-image: url('./images/bg_1.jpg');
+    background-image: url('./images/bg_2.jpg');
     padding: 2rem;
     width: 400px;
     height: max-content;
@@ -33,7 +33,8 @@ form input[type='password'] {
     height: 40px;
     border: solid 1px #777;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 18px;
+    text-align: center;
 }
 
 .err-message {

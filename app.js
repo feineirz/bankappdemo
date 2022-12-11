@@ -3,6 +3,16 @@ import { Bank, Account } from './bank.js'
 const momoBank = new Bank('MMB', 'Momo Bank')
 let curAccount
 
+const currencyFormat = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+})
+const fullDatetimeFormat = new Intl.DateTimeFormat('en-GB', {
+    dateStyle: 'full',
+    timeStyle: 'long',
+    timeZone: 'Asia/Bangkok',
+})
+
 const contentBox = document.querySelector('.content')
 
 const nav_publicMenu = document.querySelector('#public-menu')
@@ -29,6 +39,15 @@ const login_pin = document.querySelector('#login_pin')
 const login_errMessage = document.querySelector('#login_err-message')
 const login_login = document.querySelector('#login_login')
 const login_cancel = document.querySelector('#login_cancel')
+
+// User page
+const accountContentPanel = document.querySelector('.account-content')
+const userGreetings = document.querySelector('.user-greetings')
+const acountBalance = document.querySelector('.account-balance')
+const transactionBody = document.querySelector('.transaction-body')
+
+const disposeSummaryAmount = document.querySelector('#dispose-summary_amount')
+const withdrawSummaryAmount = document.querySelector('#withdraw-summary_amount')
 
 // ===== Register =====
 nav_register.addEventListener('click', e => {
@@ -80,7 +99,7 @@ login_login.addEventListener('click', () => {
     const username = login_username.value
     const pin = login_pin.value
 
-    const curAccount = momoBank.login(username, pin)
+    curAccount = momoBank.login(username, pin)
 
     if (!curAccount) {
         login_errMessage.style.display = 'flex'
@@ -89,8 +108,17 @@ login_login.addEventListener('click', () => {
         return
     }
 
+    fillDummyData()
+
     nav_publicMenu.style.display = 'none'
     nav_userMenu.style.display = 'block'
+
+    accountContentPanel.style.display = 'block'
+    userGreetings.innerText = `Welcome, ${curAccount.owner}`
+
+    acountBalance.innerText = currencyFormat.format(curAccount.balance)
+
+    updateTransaction()
 
     loginForm.reset()
     login_errMessage.style.display = 'none'
@@ -109,10 +137,43 @@ nav_logout.addEventListener('click', () => {
     curAccount = undefined
     nav_publicMenu.style.display = 'block'
     nav_userMenu.style.display = 'none'
+
+    accountContentPanel.style.display = 'none'
+    transactionBody.innerHTML = ''
 })
 
-// Test case
-// const mikeAcc = new Account('Mike Wales', 'mike', 1112)
-// momoBank.register(mikeAcc)
+// Account Functional
+const updateTransaction = () => {
+    curAccount.movements.forEach(mov => {
+        transactionBody.insertAdjacentHTML(
+            'afterbegin',
+            `
+			<div class="transaction-item">
+				<div class="transaction-desc">
+					<p>${mov.desc}</p>
+					<p class="transaction-date">${fullDatetimeFormat.format(new Date(mov.recDate))}</p>
+				</div>
+				<div class="transaction-amount ${mov.amount < 0 ? 'withdraw' : ''}">${currencyFormat.format(mov.amount)}</div>
+			</div>
+			`
+        )
+    })
+    disposeSummaryAmount.innerText = currencyFormat.format(curAccount.totalDispose)
+    withdrawSummaryAmount.innerText = currencyFormat.format(curAccount.totalWithdraw)
+}
 
-// console.log(momoBank.find(mikeAcc.accId))
+// Test case
+const fillDummyData = () => {
+    if (curAccount && curAccount.balance === 0) {
+        curAccount.dispose(100000, 'Initialize Coupon')
+        curAccount.withdraw(5000, 'Membership Fee')
+        curAccount.dispose(50000, 'Prize Winning')
+        curAccount.withdraw(15000, 'Health Insurance')
+        curAccount.withdraw(2500, 'EDC Walmart')
+        curAccount.withdraw(4500, 'EDC Shopee')
+    }
+    console.log(curAccount)
+    console.log(curAccount.totalDispose)
+    console.log(curAccount.totalWithdraw)
+    console.log(curAccount.balance)
+}

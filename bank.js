@@ -79,6 +79,18 @@ export class Account {
         return this
     }
 
+    get movements() {
+        return this.#movements
+    }
+
+    get totalDispose() {
+        return this.movements.reduce((acc, cur) => (cur.amount > 0 ? acc + cur.amount : acc), 0)
+    }
+
+    get totalWithdraw() {
+        return this.movements.reduce((acc, cur) => (cur.amount < 0 ? acc - cur.amount : acc), 0)
+    }
+
     get balance() {
         return this.#movements.length > 0 ? this.#movements.reduce((acc, cur) => acc + cur.amount, 0) : 0
     }
