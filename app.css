@@ -15,6 +15,10 @@ body {
     background-color: #333;
 }
 
+button {
+    font-family: 'Poppins', sans-serif;
+}
+
 .container {
     display: flex;
     margin: auto auto;
@@ -54,6 +58,17 @@ body {
     height: 70px;
     border-radius: 10px;
     background-color: #eeeeeee0;
+}
+
+.user-greetings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.account-id {
+    font-size: 12px;
+    color: #1553a3;
 }
 
 .account-balance {
@@ -144,4 +159,66 @@ body {
 .summary-amount {
     font-size: 30px;
     font-weight: bold;
+}
+
+/* Operation Panel */
+.operation-panel {
+    padding-left: 1rem;
+    width: 40%;
+}
+
+.credit-transfer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    height: max-content;
+    /* border: solid 1px #1553a3;
+    border-radius: 7px; */
+    border: solid 1px #1553a3;
+    color: #eee;
+}
+
+.credit-transfer_title {
+    padding: 0.5rem;
+    font-size: 24px;
+    /* border-radius: 7px 7px 0 0; */
+    background-color: #1553a3;
+}
+
+.credit-transfer_body {
+    padding: 1rem 0.5rem;
+    height: max-content;
+    border-radius: 0 0 7px 7px;
+}
+
+.hl-field-group {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem;
+    color: #445;
+}
+
+.hl-field-group .field-label {
+    width: 110px !important;
+    font-size: 17px;
+}
+.hl-field-group input[type='text'],
+.hl-field-group input[type='number'] {
+    flex-grow: 1;
+    margin: 0 0.5rem;
+}
+
+.hl-button-group {
+    display: flex;
+    justify-content: end;
+    padding: 0.5rem 1rem;
+}
+.hl-button-group button {
+    padding: 0.5rem 1rem;
+    font-size: 16px;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
 }

@@ -27,14 +27,25 @@
 }
 
 form input[type='text'],
+form input[type='number'],
 form input[type='password'] {
     padding: 0 0.5rem;
-    width: 100%;
+    width: auto;
     height: 40px;
     border: solid 1px #777;
     border-radius: 5px;
+    outline: 0;
     font-size: 18px;
     text-align: center;
+}
+
+form input:hover,
+form input:focus {
+    box-shadow: 0 0 5px #044bcf;
+}
+
+form input.full-width {
+    width: 100%;
 }
 
 .err-message {
@@ -75,9 +86,19 @@ form button {
     cursor: pointer;
 }
 
+.btn-blue {
+    color: white;
+    background-color: #044bcf;
+}
+.btn-blue:hover {
+    background-color: #17469c;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
 .btn-orange {
     color: white;
-    background-color: orange;
+    background-color: #ff8800;
 }
 .btn-orange:hover {
     color: black;

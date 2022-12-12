@@ -42,12 +42,17 @@ const login_cancel = document.querySelector('#login_cancel')
 
 // User page
 const accountContentPanel = document.querySelector('.account-content')
-const userGreetings = document.querySelector('.user-greetings')
+const greetingsMessage = document.querySelector('.greetings-message')
+const accountId = document.querySelector('.account-id')
 const acountBalance = document.querySelector('.account-balance')
 const transactionBody = document.querySelector('.transaction-body')
 
 const disposeSummaryAmount = document.querySelector('#dispose-summary_amount')
 const withdrawSummaryAmount = document.querySelector('#withdraw-summary_amount')
+
+const creditTransfer_accId = document.querySelector('#credit-transfer_accId')
+const creditTransfer_amount = document.querySelector('#credit-transfer_amount')
+const creditTransfer_transfer = document.querySelector('#credit-transfer_transfer')
 
 // ===== Register =====
 nav_register.addEventListener('click', e => {
@@ -114,8 +119,8 @@ login_login.addEventListener('click', () => {
     nav_userMenu.style.display = 'block'
 
     accountContentPanel.style.display = 'block'
-    userGreetings.innerText = `Welcome, ${curAccount.owner}`
-
+    greetingsMessage.innerText = `Welcome, ${curAccount.owner}`
+    accountId.innerText = `AccId. ${curAccount.formatedAccId}`
     acountBalance.innerText = currencyFormat.format(curAccount.balance)
 
     updateTransaction()
@@ -153,7 +158,7 @@ const updateTransaction = () => {
 					<p>${mov.desc}</p>
 					<p class="transaction-date">${fullDatetimeFormat.format(new Date(mov.recDate))}</p>
 				</div>
-				<div class="transaction-amount ${mov.amount < 0 ? 'withdraw' : ''}">${currencyFormat.format(mov.amount)}</div>
+				<div class="transaction-amount ${mov.amount >= 0 ? 'dispose' : 'withdraw'}">${currencyFormat.format(mov.amount)}</div>
 			</div>
 			`
         )
@@ -161,6 +166,13 @@ const updateTransaction = () => {
     disposeSummaryAmount.innerText = currencyFormat.format(curAccount.totalDispose)
     withdrawSummaryAmount.innerText = currencyFormat.format(curAccount.totalWithdraw)
 }
+
+creditTransfer_transfer.addEventListener('click', () => {
+    const accId = creditTransfer_accId.value
+    const amount = creditTransfer_amount.value
+
+    momoBank.transfer(curAccount.accId, accId, amount)
+})
 
 // Test case
 const fillDummyData = () => {
@@ -172,8 +184,6 @@ const fillDummyData = () => {
         curAccount.withdraw(2500, 'EDC Walmart')
         curAccount.withdraw(4500, 'EDC Shopee')
     }
-    console.log(curAccount)
-    console.log(curAccount.totalDispose)
-    console.log(curAccount.totalWithdraw)
-    console.log(curAccount.balance)
+
+    console.log(curAccount.accId.slice(0, 4))
 }

@@ -48,15 +48,15 @@
                         <form id="register-form" action="" method="POST">
                             <div class="field-group">
                                 <p class="field-label">Fullname</p>
-                                <input type="text" name="" id="reg_fullname" required />
+                                <input type="text" name="" id="reg_fullname" class="full-width" required />
                             </div>
                             <div class="field-group">
                                 <p class="field-label">Username</p>
-                                <input type="text" name="" id="reg_username" required />
+                                <input type="text" name="" id="reg_username" class="full-width" required />
                             </div>
                             <div class="field-group">
                                 <p class="field-label">PIN</p>
-                                <input type="password" name="" id="reg_pin" required />
+                                <input type="password" name="" id="reg_pin" class="full-width" required />
                             </div>
                             <div class="err-message" id="reg_err-message">Error message</div>
                             <div class="button-group">
@@ -72,11 +72,11 @@
                         <form id="login-form" action="" method="POST">
                             <div class="field-group">
                                 <p class="field-label">Username</p>
-                                <input type="text" name="" id="login_username" required />
+                                <input type="text" name="" id="login_username" class="full-width" required />
                             </div>
                             <div class="field-group">
                                 <p class="field-label">PIN</p>
-                                <input type="password" name="" id="login_pin" required />
+                                <input type="password" name="" id="login_pin" class="full-width" required />
                             </div>
                             <div class="err-message" id="login_err-message">Error message</div>
                             <div class="button-group">
@@ -88,7 +88,10 @@
                 </div>
                 <div class="account-content">
                     <div class="userinfo">
-                        <div class="user-greetings"></div>
+                        <div class="user-greetings">
+                            <div class="greetings-message"></div>
+                            <div class="account-id"></div>
+                        </div>
                         <div class="account-balance">-</div>
                     </div>
                     <div class="account-functional">
@@ -98,15 +101,34 @@
                             <div class="transaction-summary">
                                 <div class="summary-group dispose">
                                     <div class="summary-title">TOTAL DISPOSE</div>
-                                    <div class="summary-amount" id="dispose-summary_amount">100</div>
+                                    <div class="summary-amount" id="dispose-summary_amount">-</div>
                                 </div>
                                 <div class="summary-group withdraw">
                                     <div class="summary-title">TOTAL WITHDRAW</div>
-                                    <div class="summary-amount" id="withdraw-summary_amount">100</div>
+                                    <div class="summary-amount" id="withdraw-summary_amount">-</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="operation-panel"></div>
+                        <div class="operation-panel">
+                            <div class="credit-transfer">
+                                <div class="credit-transfer_title">Credit Transfer</div>
+                                <div class="credit-transfer_body">
+                                    <form id="credit-transfer_form" action="">
+                                        <div class="hl-field-group">
+                                            <span class="field-label">Account ID</span>
+                                            <input type="text" id="credit-transfer_accId" required />
+                                        </div>
+                                        <div class="hl-field-group">
+                                            <span class="field-label">Amount</span>
+                                            <input type="number" id="credit-transfer_amount" required />
+                                        </div>
+                                        <div class="hl-button-group">
+                                            <button class="btn-blue" id="credit-transfer_transfer">TRANSFER</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>

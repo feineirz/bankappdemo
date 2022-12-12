@@ -26,11 +26,11 @@ export class Bank {
     }
 
     find(accId) {
-        return this.#accounts.filter(ele => accId === ele.accId)[0]
+        return this.#accounts.filter(acc => accId === acc.accId)[0]
     }
 
     exist(username) {
-        return this.#accounts.filter(ele => username === ele.username)[0]
+        return this.#accounts.filter(acc => username === acc.username)[0]
     }
 
     login(username, pin) {
@@ -43,6 +43,16 @@ export class Bank {
 
         this.#accounts.push(account)
         return true
+    }
+
+    transfer(srcAccId, descAccId, amount) {
+        console.log(srcAccId, descAccId)
+        console.log(this.#accounts)
+
+        const srcAcc = this.find(srcAccId.replace('-', '') - 0)
+        const descAcc = this.find(descAccId.replace('-', '') - 0)
+        console.log(srcAcc)
+        console.log(descAcc)
     }
 }
 
@@ -60,6 +70,17 @@ export class Account {
 
     get accId() {
         return this.#accId
+    }
+
+    get formatedAccId() {
+        let buff = ''
+        if (this.#accId) {
+            for (let i = 0; i < Math.floor(this.#accId.length / 4); i++) {
+                buff += buff === '' ? '' : '-'
+                buff += this.#accId.slice(i * 4, (i + 1) * 4)
+            }
+        }
+        return buff
     }
 
     get pin() {
@@ -96,8 +117,8 @@ export class Account {
     }
 }
 
-const uniqeId = function (lenght = 16) {
-    const idSize = Math.pow(10, lenght)
+const uniqeId = function (length = 16) {
+    const idSize = Math.pow(10, length)
     const uid = (Math.random() * idSize).toFixed(0)
-    return uid.length === lenght ? uid : uniqeId(lenght)
+    return uid.length === length ? uid : uniqeId(length)
 }
