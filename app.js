@@ -53,6 +53,7 @@ const withdrawSummaryAmount = document.querySelector('#withdraw-summary_amount')
 const creditTransfer_accId = document.querySelector('#credit-transfer_accId')
 const creditTransfer_amount = document.querySelector('#credit-transfer_amount')
 const creditTransfer_transfer = document.querySelector('#credit-transfer_transfer')
+const creditTransfer_form = document.querySelector('#credit-transfer_form')
 
 // ===== Register =====
 nav_register.addEventListener('click', e => {
@@ -121,7 +122,6 @@ login_login.addEventListener('click', () => {
     accountContentPanel.style.display = 'block'
     greetingsMessage.innerText = `Welcome, ${curAccount.owner}`
     accountId.innerText = `AccId. ${curAccount.formatedAccId}`
-    acountBalance.innerText = currencyFormat.format(curAccount.balance)
 
     updateTransaction()
 
@@ -149,6 +149,9 @@ nav_logout.addEventListener('click', () => {
 
 // Account Functional
 const updateTransaction = () => {
+    acountBalance.innerText = currencyFormat.format(curAccount.balance)
+
+    transactionBody.innerHTML = ''
     curAccount.movements.forEach(mov => {
         transactionBody.insertAdjacentHTML(
             'afterbegin',
@@ -167,11 +170,14 @@ const updateTransaction = () => {
     withdrawSummaryAmount.innerText = currencyFormat.format(curAccount.totalWithdraw)
 }
 
-creditTransfer_transfer.addEventListener('click', () => {
+creditTransfer_form.addEventListener('submit', e => {
+    e.preventDefault()
+
     const accId = creditTransfer_accId.value
     const amount = creditTransfer_amount.value
-
-    momoBank.transfer(curAccount.accId, accId, amount)
+    momoBank.transfer(curAccount.accId, accId, amount - 0)
+    creditTransfer_form.reset()
+    updateTransaction()
 })
 
 // Test case
@@ -184,6 +190,4 @@ const fillDummyData = () => {
         curAccount.withdraw(2500, 'EDC Walmart')
         curAccount.withdraw(4500, 'EDC Shopee')
     }
-
-    console.log(curAccount.accId.slice(0, 4))
 }

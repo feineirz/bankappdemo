@@ -25,6 +25,10 @@ export class Bank {
         return this.#bankName
     }
 
+    get accounts() {
+        return this.#accounts
+    }
+
     find(accId) {
         return this.#accounts.filter(acc => accId === acc.accId)[0]
     }
@@ -42,17 +46,23 @@ export class Bank {
         if (this.exist(account.username)) return false
 
         this.#accounts.push(account)
+        console.log(this.#accounts)
         return true
     }
 
     transfer(srcAccId, descAccId, amount) {
-        console.log(srcAccId, descAccId)
-        console.log(this.#accounts)
+        console.log(srcAccId, descAccId, amount - 0)
+        console.log('Transfer function called.')
 
-        const srcAcc = this.find(srcAccId.replace('-', '') - 0)
-        const descAcc = this.find(descAccId.replace('-', '') - 0)
-        console.log(srcAcc)
-        console.log(descAcc)
+        console.log(this.accounts)
+
+        console.log(srcAccId.trim().replaceAll('-', ''), descAccId.trim().replaceAll('-', ''))
+
+        const srcAcc = this.find(srcAccId.trim().replaceAll('-', ''))
+        const descAcc = this.find(descAccId.trim().replaceAll('-', ''))
+
+        srcAcc.withdraw(amount, `Transfered to "${descAcc.accId}"`)
+        descAcc.dispose(amount, `Transfered from "${srcAcc.accId}"`)
     }
 }
 
