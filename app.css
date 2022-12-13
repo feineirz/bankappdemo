@@ -36,12 +36,32 @@ button {
     position: fixed;
     top: 0;
     left: 0;
-    padding: 3rem;
+    padding: 5rem;
     width: 100%;
     height: 100%;
-    background-color: #c3c3c3f3;
+    background-color: #333333f0;
     z-index: 3;
     transition: 0.4s;
+}
+
+.message-overlay_title {
+    padding-bottom: 0.5rem;
+    font-size: 28px;
+    border-bottom: solid 2px #777;
+}
+.message-overlay_message {
+    padding: 1rem;
+    font-size: 18px;
+    border-bottom: solid 1px #999;
+}
+.msg-success {
+    color: #0aa50a;
+}
+.msg-warning {
+    color: orange;
+}
+.msg-error {
+    color: #d81111;
 }
 
 .account-content {
@@ -163,7 +183,9 @@ button {
 
 /* Operation Panel */
 .operation-panel {
-    padding-left: 1rem;
+    display: flex;
+    justify-content: end;
+    padding-left: 30px;
     width: 40%;
 }
 
@@ -171,10 +193,10 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: auto;
+    width: 100%;
     height: max-content;
-    /* border: solid 1px #1553a3;
-    border-radius: 7px; */
+    border: solid 1px #1553a3;
+    border-radius: 10px;
     border: solid 1px #1553a3;
     color: #eee;
 }
@@ -182,14 +204,14 @@ button {
 .credit-transfer_title {
     padding: 0.5rem;
     font-size: 24px;
-    /* border-radius: 7px 7px 0 0; */
+    border-radius: 10px 10px 0 0;
     background-color: #1553a3;
 }
 
 .credit-transfer_body {
     padding: 1rem 0.5rem;
     height: max-content;
-    border-radius: 0 0 7px 7px;
+    border-radius: 0 0 10px 10px;
 }
 
 .hl-field-group {
@@ -213,7 +235,7 @@ button {
 .hl-button-group {
     display: flex;
     justify-content: end;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
 }
 .hl-button-group button {
     padding: 0.5rem 1rem;

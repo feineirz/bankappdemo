@@ -51,18 +51,15 @@ export class Bank {
     }
 
     transfer(srcAccId, descAccId, amount) {
-        console.log(srcAccId, descAccId, amount - 0)
-        console.log('Transfer function called.')
-
-        console.log(this.accounts)
-
-        console.log(srcAccId.trim().replaceAll('-', ''), descAccId.trim().replaceAll('-', ''))
-
         const srcAcc = this.find(srcAccId.trim().replaceAll('-', ''))
         const descAcc = this.find(descAccId.trim().replaceAll('-', ''))
 
-        srcAcc.withdraw(amount, `Transfered to "${descAcc.accId}"`)
-        descAcc.dispose(amount, `Transfered from "${srcAcc.accId}"`)
+        if (!srcAcc || !descAcc) return false
+        if (srcAcc === descAcc) return false
+
+        srcAcc.withdraw(amount, `TFR [${descAcc.accId}]`)
+        descAcc.dispose(amount, `TFR [${srcAcc.accId}]`)
+        return true
     }
 }
 

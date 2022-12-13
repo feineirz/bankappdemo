@@ -52,7 +52,6 @@ const withdrawSummaryAmount = document.querySelector('#withdraw-summary_amount')
 
 const creditTransfer_accId = document.querySelector('#credit-transfer_accId')
 const creditTransfer_amount = document.querySelector('#credit-transfer_amount')
-const creditTransfer_transfer = document.querySelector('#credit-transfer_transfer')
 const creditTransfer_form = document.querySelector('#credit-transfer_form')
 
 // ===== Register =====
@@ -87,7 +86,11 @@ registerForm.addEventListener('submit', e => {
 
     // Create account and register to the bank
     const acc = new Account(fullname, username, pin)
-    momoBank.register(acc)
+    if (momoBank.register(acc)) {
+        showOverlayMessage('Register Result', 'Account registration successful.')
+    } else {
+        showOverlayMessage('Register Result', 'Account registration fail!!!', 'error')
+    }
 
     registerForm.reset()
     reg_errMessage.style.display = 'none'
@@ -145,9 +148,46 @@ nav_logout.addEventListener('click', () => {
 
     accountContentPanel.style.display = 'none'
     transactionBody.innerHTML = ''
+
+    showOverlayMessage('Logout Result', 'Logout successful.')
 })
 
-// Account Functional
+creditTransfer_form.addEventListener('submit', e => {
+    e.preventDefault()
+
+    const accId = creditTransfer_accId.value
+    const amount = creditTransfer_amount.value
+    if (momoBank.transfer(curAccount.accId, accId, amount - 0)) {
+        showOverlayMessage('Transfering Result', 'Credit transfering successful.')
+    } else {
+        showOverlayMessage('Transfering Result', 'Credit transfering fail!!!', 'error')
+    }
+    creditTransfer_form.reset()
+    updateTransaction()
+})
+
+// Helper Functions
+const showOverlayMessage = (title, message, state = 'success') => {
+    const messageOverlay = document.querySelector('#message-overlay')
+    const messageOverlay_title = document.querySelector('#message-overlay_title')
+    const messageOverlay_message = document.querySelector('#message-overlay_message')
+    const messageOverlay_ok = document.querySelector('#message-overlay_ok')
+
+    messageOverlay_title.innerText = title
+
+    messageOverlay_message.classList.remove('msg-success', 'msg-warning', 'msg-error')
+    messageOverlay_message.classList.add(`msg-${state}`)
+    messageOverlay_message.innerText = message
+
+    messageOverlay.style.opacity = 100
+    messageOverlay.style.visibility = 'visible'
+
+    messageOverlay_ok.addEventListener('click', () => {
+        messageOverlay.style.opacity = 0
+        messageOverlay.style.visibility = 'hidden'
+    })
+}
+
 const updateTransaction = () => {
     acountBalance.innerText = currencyFormat.format(curAccount.balance)
 
@@ -170,24 +210,9 @@ const updateTransaction = () => {
     withdrawSummaryAmount.innerText = currencyFormat.format(curAccount.totalWithdraw)
 }
 
-creditTransfer_form.addEventListener('submit', e => {
-    e.preventDefault()
-
-    const accId = creditTransfer_accId.value
-    const amount = creditTransfer_amount.value
-    momoBank.transfer(curAccount.accId, accId, amount - 0)
-    creditTransfer_form.reset()
-    updateTransaction()
-})
-
 // Test case
 const fillDummyData = () => {
     if (curAccount && curAccount.balance === 0) {
-        curAccount.dispose(100000, 'Initialize Coupon')
-        curAccount.withdraw(5000, 'Membership Fee')
-        curAccount.dispose(50000, 'Prize Winning')
-        curAccount.withdraw(15000, 'Health Insurance')
-        curAccount.withdraw(2500, 'EDC Walmart')
-        curAccount.withdraw(4500, 'EDC Shopee')
+        curAccount.dispose(100000, 'Initialize Balance')
     }
 }
